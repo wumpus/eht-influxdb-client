@@ -5,10 +5,10 @@ from os import path
 from setuptools import setup
 
 packages = [
-    'eht-influxdb-client',
+    'eht_influxdb_client',
 ]
 
-ztest_requirements = ['pytest', 'coverage', 'pytest-cov', 'pytest-sugar', 'coveralls']
+test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar', 'coveralls']
 
 requires = [
     'influxdb_client',  # official v2 client
@@ -23,7 +23,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='eht-influxdb-client',
     use_scm_version=True,
-    description='A client for manipualting InfluxDB monitoring of the Event Horizon Telescope'
+    description='A client for manipualting InfluxDB monitoring of the Event Horizon Telescope',
     long_description=description,
     long_description_content_type='text/markdown',
     author='Greg Lindahl and others',
@@ -36,7 +36,7 @@ setup(
     install_requires=requires,
     entry_points='''
         [console_scripts]
-        eht-influxdb-client = eht-influxedb-client.cli:main
+        eht-influxdb-client = eht_influxdb_client.cli:main
     ''',
     #scripts=scripts,
     license='Apache 2.0',

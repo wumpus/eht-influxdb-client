@@ -1,2 +1,7 @@
 __pycache__
 *~
+build/
+eht_influxdb_client.egg-info/
+.coverage
+coverage.xml
+dist/

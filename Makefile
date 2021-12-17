@@ -10,7 +10,7 @@ clean_coverage:
 	rm -f .coverage
 
 test_coverage: clean_coverage
-	PYTHONPATH=. coverage run -a --source=eht_influxdb_client
+	#PYTHONPATH=. coverage run -a --source=eht_influxdb_client
 	PYTHONPATH=. py.test --doctest-modules --cov-report=xml --cov-append --cov eht_influxdb_client tests -v -v
 	coverage report
 
