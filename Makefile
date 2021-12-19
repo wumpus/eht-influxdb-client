@@ -3,8 +3,13 @@
 init:
 	pip install --use-feature=in-tree-build .
 
-test:
+test_scripts:
+	PYTHONPATH=.:scripts python scripts/timebin_example.py
+
+test_tests:
 	PYTHONPATH=. py.test --doctest-modules tests -v -v
+
+test: test_tests test_scripts
 
 clean_coverage:
 	rm -f .coverage
