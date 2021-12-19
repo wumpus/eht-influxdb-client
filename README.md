@@ -91,17 +91,25 @@ while True:
 examine influxdb_client to see how they test
 
 check .read_config_file():
+
 fnf
+
 inline comments
+
 lack of bucket
+
 _test vs _prod
 
 check the incoming data-or-df to make sure it has a 'timestamp'
+
 provide helpers to go from Python time to iso8601/rfc3339 and back (and what's the difference?)
 
 implement multiple influx databases in the config
+
 implement jsonl logfile with a separate json schema (?)
+
 make the timestamp the first field of csv and jsonl for sorting/grepping ease
 
 implement jsonl logfile replay into the database
+
 implement database to jsonl logfile
