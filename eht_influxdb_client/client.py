@@ -1,6 +1,5 @@
 import os
 import os.path
-import configparser
 from urllib3 import Retry
 
 from influxdb_client import InfluxDBClient, Point
@@ -8,12 +7,12 @@ from influxdb_client.client.write_api import ASYNCHRONOUS, SYNCHRONOUS, WriteOpt
 from influxdb_client.client.exceptions import InfluxDBError
 from influxdb_client.domain.write_precision import WritePrecision
 
+from . import config
+
 
 class WrapInfluxDBClient(InfluxDBClient):
     def __init__(self, *args, **kwargs):
-        if 'bucket' in kwargs:
-            self._bucket = kwargs['bucket']
-            del kwargs['bucket']
+        self._bucket = kwargs['bucket'].pop(None)
         return super().__init__(*args, **kwargs)
 
     @property
@@ -22,45 +21,9 @@ class WrapInfluxDBClient(InfluxDBClient):
 
     @classmethod
     def from_config_file(cls, fname, *args, **kwargs):
-        '''Test for some common mistakes that cause inscrutable errors:
-        file not found => KeyError
-        inline comments in the ini file are not stripped, and if in the URL,
-        can easily result in a weird error like:
-        "FluxCsvParserException: Unable to parse CSV response. FluxTable definition was not found."
-        If the bucket name is in the config file
-        '''
-        fname = os.path.expandvars(os.path.expanduser(fname))
-        if not os.path.isfile(fname):
-            raise ValueError('ini file does not exist: '+str(fname))
+        kwargs = config.read_config_file(fname, **kwargs)
 
-        config = configparser.ConfigParser()
-        config.read(fname)
-
-        if 'influx2' not in config:
-            raise ValueError('config file lacks an [influx2] section')
-
-        ci = config['influx2']
-        for key, value in ci.items():
-            value = value.replace('"', '')
-            if ' ' in value or '#' in value:
-                raise ValueError('from_config_file: saw a space or # in {}... hint: inline comments are not valid in config files'.format(key))
-            if key in kwargs:
-                print('from_config_file: letting keyword override config file for key', key)
-            else:
-                kwargs[key] = value
-
-        if 'bucket' in kwargs:
-            bucket = kwargs['bucket']
-            del kwargs['bucket']
-        else:
-            bucket = None
-
-        instance = cls(*args, **kwargs)
-
-        if bucket is not None:
-            instance._bucket = bucket
-
-        return instance
+        return cls(*args, **kwargs)
 
 
 def write_points(write_api, bucket, measurement, points, t, station, write_precision=WritePrecision.S):

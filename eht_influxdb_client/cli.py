@@ -8,7 +8,7 @@ def main(args=None):
 
     parser.add_argument('verb')
 
-    parser.parse_args(args=args)
+    args = parser.parse_args(args=args)
 
     if args.verb == 'print-config':
         print('foo')

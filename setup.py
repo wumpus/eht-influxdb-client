@@ -8,7 +8,7 @@ packages = [
     'eht_influxdb_client',
 ]
 
-test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar', 'coveralls']
+test_requirements = ['pytest', 'pytest-cov', 'pytest-sugar', 'coveralls', 'pyfakefs']
 
 requires = [
     'influxdb_client',  # official v2 client
@@ -23,7 +23,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name='eht-influxdb-client',
     use_scm_version=True,
-    description='A client for manipualting InfluxDB monitoring of the Event Horizon Telescope',
+    description='A client for manipulating InfluxDB monitoring of the Event Horizon Telescope',
     long_description=description,
     long_description_content_type='text/markdown',
     author='Greg Lindahl and others',
