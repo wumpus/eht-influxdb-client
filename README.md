@@ -1,4 +1,4 @@
-# eht-influx-client
+# eht-influxdb-client
 
 This package provides a client to deliver monitoring information about
 the Event Horizon Telescope to an InfluxDB-based datastore.
@@ -16,7 +16,7 @@ The interface for this client is intended to be similar to the official influxdb
 
 ```
     import pandas as pd
-    from eht_influx_client import EHTInfluxDBClient
+    from eht_influxdb_client import EHTInfluxDBClient
 
     df = pd.DataFrame([{'station': 'Kp', 'pps_offset': -3, 'timestamp': 1617672549204824064}])
 
@@ -42,7 +42,7 @@ your own Python multiprocessing pool.
 
 To see the full range of configuring the client, use the cli command
 
-`$ eht-influx-client print-config > influx_config.ini`
+`$ eht-influxdb-client print-config > influx_config.ini`
 
 ## Replaying logged CSV data into InfluxDB
 
@@ -73,7 +73,7 @@ which interpolates data values into exact time bins.
 ```
 import time
 import random
-from eht_influx_client.timebin import TimeBin
+from eht_influxdb_client.timebin import TimeBin
 
 tb = TimeBin(1.0)  # 1.0 second bins is the default
 
@@ -90,7 +90,7 @@ while True:
 
 examine influxdb_client to see how they test
 
-test .read_config_file():
+check .read_config_file():
 fnf
 inline comments
 lack of bucket
